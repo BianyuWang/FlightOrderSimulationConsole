@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FlightOrderSimulationConsole.Models
+namespace FlightOrderSimulationConsole.Data
 {
    public static class FlightScheduledData
     {
