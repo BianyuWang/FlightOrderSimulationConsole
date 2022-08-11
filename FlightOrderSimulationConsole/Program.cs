@@ -16,7 +16,7 @@ List<OrderDetailDisplay> orderDetails;
 //print menu
 
 
-while (input != 4)
+while (input != 5)
 {
     printMenu();
 
@@ -24,7 +24,7 @@ while (input != 4)
     isNumber = Int32.TryParse(Console.ReadLine(), out input);
 
     //if not meet the requirement, let user choose from the beginning 
-    if (!isNumber || input > 4)
+    if (!isNumber || input > 5)
     {
         Console.WriteLine("Please enter a number from 1 to 4");
         continue;
@@ -221,8 +221,10 @@ static List<OrderComeIn> ReadOrderFromJson()
     //read file into dynamic object
     StreamReader r = new StreamReader(jsonfile);
     string jsonString = r.ReadToEnd();
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
     dynamic details = JsonConvert.DeserializeObject<ExpandoObject>(jsonString, new ExpandoObjectConverter());
-   
+#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
+
     // convert to a dictionary, key is the order number, and value should be an other key value pair
     var expandoDict = details as IDictionary<string, object>;
    
@@ -231,7 +233,6 @@ static List<OrderComeIn> ReadOrderFromJson()
         OrderComeIn order = new OrderComeIn() {
             OrderNumber = i.Key,
             Destination = (AirportAbbr)Enum.Parse(typeof(AirportAbbr), ((dynamic)i.Value).destination, true)
-
     };
         
         orders.Add(order);
